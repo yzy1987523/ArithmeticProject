@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    private S1 s1=new S1();
+    private S9 s=new S9();
 
-    void Start()
+    [ContextMenu("test")]
+    void test()
     {        
-        Debug.Log(s1.ReverseLeftWords("asdasdaefse", 2));
+        Debug.Log(s.MinWindow("a", "a"));
     }
 
    
