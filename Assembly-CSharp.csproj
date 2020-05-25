@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scenes\Scripts\Main.cs" />
     <Compile Include="Assets\Scenes\Scripts\S1.cs" />
+    <Compile Include="Assets\Scenes\Scripts\S11.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/WorkProject/_Projects/ArithmeticProject/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

@@ -3,7 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-
+public class TreeNode
+{
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode(int x) { val = x; }
+}
+public class ListNode
+{
+    public int val;
+    public ListNode next;
+    public ListNode(int x) { val = x; }
+}
 public class S1
 {
     public string ReverseLeftWords(string s, int n)
@@ -15,12 +27,7 @@ public class S1
 public class S2
 {
 
-    public class ListNode
-    {
-        public int val;
-        public ListNode next;
-        public ListNode(int x) { val = x; }
-    }
+   
 
     public ListNode GetKthFromEnd(ListNode head, int k)
     {
@@ -62,13 +69,7 @@ public class S3
 }
 public class S4
 {
-    public class TreeNode
-    {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-        public TreeNode(int x) { val = x; }
-    }
+   
     public TreeNode MirrorTree(TreeNode root)
     {
         if (root == null) return null;
@@ -80,14 +81,6 @@ public class S4
 }
 public class S5
 {
-    public class TreeNode
-    {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-        public TreeNode(int x) { val = x; }
-    }
-
     public int MaxDepth(TreeNode root)
     {
         if (root == null) return 0;
@@ -117,12 +110,7 @@ public class S6
 }
 public class S7
 {
-    public class ListNode
-    {
-        public int val;
-        public ListNode next;
-        public ListNode(int x) { val = x; }
-    }
+    
     public int[] ReversePrint(ListNode head)
     {
         if (head == null) return new int[] { };
@@ -146,12 +134,7 @@ public class S7
 }
 public class S8
 {
-    public class ListNode
-    {
-        public int val;
-        public ListNode next;
-        public ListNode(int x) { val = x; }
-    }
+  
     public ListNode ReverseList(ListNode head)
     {
         if (head == null || head.next == null) return head;
@@ -195,21 +178,21 @@ public class S9
 
         var left = 0;
         var right = 0;
-        int areaL =0;
-        int ansL = s.Length+1;
+        int areaL = 0;
+        int ansL = s.Length + 1;
         while (right < s.Length)
-        {           
-            if (right<s.Length&& tDic.ContainsKey(s[right]))
+        {
+            if (right < s.Length && tDic.ContainsKey(s[right]))
             {
                 AddItem(sDic, s[right]);
             }
             while (CheckDic() && left <= right)
             {
-                if (ansL> right-left+1)
+                if (ansL > right - left + 1)
                 {
                     ansL = right - left + 1;
                     areaL = left;
-                }                
+                }
                 RemoveItem(sDic, s[left]);
                 left++;
             }
@@ -256,4 +239,35 @@ public class S9
         return true;
     }
 
+}
+
+public class S10
+{
+    //用找最小K数的方法找中位数
+    public double FindMedianSortedArrays(int[] nums1, int[] nums2)
+    {
+        var n = nums1.Length + nums2.Length;
+        if ((n & 1) == 0)
+        {
+            return (FindKthElm(nums1, nums2, n >> 1) + FindKthElm(nums1, nums2, (n >> 1) + 1)) / 2.0;//返回值是double类型
+        }
+        return FindKthElm(nums1, nums2, (n >> 1) + 1);
+    }
+    //找第K个元素
+    int FindKthElm(int[] nums1, int[] nums2, int k)
+    {
+        if (!(1 <= k && k <= nums1.Length + nums2.Length)) return 0;
+        int left = Math.Max(0, k - nums2.Length);
+        int right = Math.Min(k, nums1.Length);
+        while (left < right)
+        {
+            int m = left + (right - left) / 2;
+            if (nums2[k - m - 1] > nums1[m]) left = m + 1;
+            else right = m;
+        }//循环结束时的位置le即为所求位置，第k小即为max(nums1[le-1]),nums2[k-le-1])，但是由于le可以为0、k,所以
+        //le-1或者k-le-1可能不存在所以下面单独判断下
+        int nums1LeftMax = left == 0 ? int.MinValue : nums1[left - 1];
+        int nums2LeftMax = left == k ? int.MinValue : nums2[k - left - 1];
+        return Math.Max(nums1LeftMax, nums2LeftMax);
+    }
 }
